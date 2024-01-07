@@ -36,7 +36,7 @@ here is the output of these command on the static and dynamic executable.
 
 
 
- 			![](./READMEcache/Comparison_1.png) 
+![](./READMEcache/Comparison_1.png) 
 
 
 
