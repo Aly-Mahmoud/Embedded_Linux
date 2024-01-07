@@ -1,0 +1,69 @@
+Embedded Linux Task 4
+Description
+
+Objective: You are tasked with developing a static library for the Microcontroller Abstraction Layer (MCAL) of your AVR drivers. The library, named libmcal.a, is intended to be used in AVR applications.
+Procedure
+
+    We need to add AVR compiler to our environment PATH to execute AVR commands so :
+
+        Open an editor for ./bashrc
+
+        nano ~/.bashrc
+
+Add the PATH of AVR to environment PATH in .bashrc to load every time i open the terminal
+
+export PATH=$PATH:~/x-tools/avr/bin
+
+Apply the changes to my current session.
+
+source .bashrc 
+
+Confirm that the directory is now in my PATH
+
+echo $PATH
+
+Run avr-gcc as now we can run it from any place
+
+avr-gcc --version
+
+The next step in SOURCE FILE directory which include :
+
+    LIB
+    MCAL
+        DIO
+        PORT
+    APP
+
+In DIO we will generate .o file including by common standard libraries and PORT libraries as DIO driver depends on PORT driver
+
+avr-gcc -c DIO.c -I ../PORT -I ../../LIB -o DIO.o
+
+Generate DIO_cfg.o for build it with Task1_main.c file
+
+avr-gcc -c DIO_cfg.c -I ../PORT -I ../../LIB -o DIO_cfg.o
+
+In PORT we will generate .o file by common standard libraries
+
+avr-gcc -c PORT.c  -I ../../LIB -o PORT.o
+
+Generate PORT_cfg.o for build it with Task1_main.c file
+
+avr-gcc -c PORT_cfg.c -I . -I ../../LIB -o PORT_cfg.o
+
+In MCAL directory
+
+We will make a static library for MCAL drivers
+
+ar -rcs libmcal.a DIO/DIO.o PORT/PORT.o
+
+In APP directory
+
+We will generate Task1_main.o to include the header library to symbol table
+
+avr-gcc -c Task1_main.c -I ../MCAL/DIO/ -I ../MCAL/PORT/ -I ../LIB/
+
+Generate the executable by linking configuration files and static library of MCAL
+
+avr-gcc -mmcu=atmega32 -o Task1_main.elf Task1_main.o ../MCAL/DIO/DIO_cfg.o ../MCAL/PORT/PORT_cfg.o ../MCAL/libmcal.a 
+
+for -mmcu=atmega32 flag that specify that the which the elf work on is atmega 32

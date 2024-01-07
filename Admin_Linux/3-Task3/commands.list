@@ -1,0 +1,1000 @@
+  554  clear
+  555  cd /usr/bin 
+  556  ls w*
+  557  cd ~
+  558  type mv
+  559  mv type
+  560  type clear
+  561  cd /usr/bin 
+  562  ls c*
+  563  type chage
+  564  type crontab
+  565  man read file
+  566  cd ~
+  567  man read file
+  568  man -read
+  569  man read
+  570  ls
+  571  cd ITI
+  572  ls
+  573  cd ~
+  574  ls
+  575  read oldpasswd
+  576  read oldpasswd -v
+  577  read -v oldpasswd 
+  578  touch aly
+  579  vi aly
+  580  read aly
+  581  vi aly
+  582  man file
+  583  man
+  584  man man
+  585  man -k read file
+  586  man man
+  587  clear
+  588  man -k read file
+  589  apropos read file
+  590  apropos change director
+  591  apropos
+  592  man apropos
+  593  mkdir myDirectory
+  594  cd myDirectory/
+  595  mkdir secondDirectory
+  596  cd secondDirectory/
+  597  touch myNotePaper
+  598  cd ~
+  599  rm -r myDirectory/
+  600  touch bashscript
+  601  vi bashscript
+  602  clear
+  603  sudo apt remove vim
+  604  vi bashscript 
+  605  sudo apt instal vim
+  606  vim bashscript
+  607  vi bashscript 
+  608  cat bashscript 
+  609  bash ~/bashscript
+  610  cd ITI/Tasks/Day1/Task1_adminLinux
+  611  git init
+  612  git branch
+  613  git branch --help
+  614  git branch -r
+  615  git add remote git@github.com:Aly-Mahmoud/Embedded-Linux.git
+  616  git branch -a
+  617  git remote add Embedded-Linux git@github.com:Aly-Mahmoud/Embedded-Linux.git
+  618  git branch -a
+  619  git branch -r
+  620  git checkout Task1_adminLinux
+  621  git checkout -b Task1_adminLinux
+  622  git --delete Task1_adminLinux
+  623  git branch --delete Task1_adminLinux
+  624  git branch --d Task1_adminLinux
+  625  git branch main
+  626  git switch main
+  627  git checkout main
+  628  git branch
+  629  git branch -b test
+  630  git checkout -b test
+  631  git branch
+  632  git switch
+  633  --dey-run
+  634  --dry-run
+  635  git --dry-run
+  636  git remote update
+  637  ls
+  638  ls -a
+  639  rm -fr .git
+  640  ls
+  641  ls -a
+  642  clear
+  643  git branch
+  644  clear
+  645  git init 
+  646  git clone https://github.com/Aly-Mahmoud/Embedded-Linux.git
+  647  cd Embedded-Linux/
+  648  git branch -a
+  649  get checkout Task1_adminLinux
+  650  git checkout Task1_adminLinux
+  651  git branch
+  652  cd ..
+  653  cp bashscript ~/home/aly/ITI/Tasks/Day1/Task1_adminLinux/Embedded-Linux
+  654  cp bashscript ~/ITI/Tasks/Day1/Task1_adminLinux/Embedded-Linux
+  655  git add bashscript
+  656  git ls-files
+  657  git commit bashscript -m "this is my first commit for the first task"
+  658  git push
+  659  git remote add Embedded-Linux https://github.com/Aly-Mahmoud/Embedded-Linux.git
+  660  git push Embedded-Linux
+  661  git status
+  662  git ls-files
+  663  find -type f
+  664  git ls-files
+  665  git push 
+  666  git push Embedded_Linux
+  667  git push Embedded-Linux
+  668  git push Embedded_Linux
+  669  git push Embedded-Linux
+  670  git checkout
+  671  git branch
+  672  git branch
+  673  git branch -a
+  674  git status
+  675  git add bashscript
+  676  git commit -m "this is my first working commit isa"
+  677  git status
+  678  git push Embedded-Linux
+  679  git push Embedded_Linux
+  680  git push 
+  681  git branch
+  682  git branch -a
+  683  cd Test_for_Git/
+  684  git init
+  685  touch test_case_1
+  686  echo for the love of git < test_case_1
+  687  vi test_case_1 
+  688  git status
+  689  git add .
+  690  git status
+  691  git commit 
+  692  git push Just-for_test
+  693  git branch 
+  694  git branch - b branch1
+  695  git branch 
+  696  git branch -c branch1
+  697  git branch 
+  698  git branch branch1
+  699  git branch 
+  700  git checkout branch1
+  701  git branch 
+  702  git push Just-for_test https://github.com/Aly-Mahmoud/Just-for-test
+  703  git push Just-for_test https://github.com/Aly-Mahmoud/Just-for-test.git
+  704  git push Just-for-test https://github.com/Aly-Mahmoud/Just-for-test
+  705  git push Just-for-test https://github.com/Aly-Mahmoud/Just-for-test.git
+  706  git push Just-for-test git@github.com:Aly-Mahmoud/Just-for-test.git
+  707  git push Just-for-test https://github.com/Aly-Mahmoud/Just-for-test.git
+  708  clear
+  709  git status
+  710  git 
+  711  git ls-files
+  712  clear
+  713  gir push --help
+  714  git push --help
+  715  clear
+  716  cd ~
+  717  ls
+  718  rmdir -p /documents/OldFiles
+  719  rmdir -p documents/OldFiles
+  720  ls
+  721  cd ITI
+  722  mkdir Task2_adminLinux
+  723  cd Task2_adminLinux
+  724  cd ..
+  725  ls
+  726  cd Task2_adminLinux/
+  727  touch Binary_search.c
+  728  vi Binary_search.c 
+  729  gcc -0 Binary_search_o Binary_search.c
+  730  gcc -o Binary_search_o Binary_search.c
+  731  ls
+  732  ./Binary_search_o
+  733  vi Binary_search.c 
+  734  gcc -o Binary_search_o Binary_search.c
+  735  ./Binary_search_o
+  736  ls
+  737  gcc -o Binary_search_o Binary_search.c
+  738  rm Binary_search_o
+  739  ./Binary_search_o
+  740  clear
+  741  ./Binary_search_o
+  742  ./usr/local/bin/Binary_search_o
+  743  gcc -o Binary_search_o Binary_search.c
+  744  ./Binary_search_o
+  745  rm Binary_search_o
+  746  cd ~
+  747  cd
+  748  cd//
+  749  cd..
+  750  cd ..
+  751  cd /usr/local/bin
+  752  ls Bina*
+  753  ./Binary_search_o
+  754  cd ../
+  755  ./Binary_search_o
+  756  echo $PATH
+  757  ls
+  758  sbin
+  759  cd sbin
+  760  ls
+  761  vi /etc/passwd
+  762  usermod
+  763  echo $PATH
+  764  ./Binary_search_o
+  765  cd ..
+  766  cd bin
+  767  ls Bin*
+  768  cd ..
+  769  ./Binary_search_o
+  770  cd bin
+  771  ls
+  772  cd ..
+  773  ./binary
+  774  cd bin
+  775  ./binary
+  776  cd ..
+  777  binary
+  778  Binary_search_o
+  779  clear
+  780  Binary_search_o 
+  781  clear
+  782  Binary_search_o 
+  783  cd ~
+  784  cd ITI/Task/Day2/Task2_adminLinux
+  785  cd ITI/Tasks/Day2/Task2_adminLinux
+  786  git init
+  787  git add .
+  788  git status
+  789  cd
+  790  git status
+  791  cd ITI/Tasks/Day1
+  792  get status
+  793  cd Task1
+  794  ls -a
+  795  cd ..
+  796  git innit
+  797  git init
+  798  git add Task1_adminLinux/
+  799  git status
+  800  commit Task1_adminLinux
+  801  git pull
+  802  git commit Task1_adminLinux/
+  803  ls -a
+  804  rm -rf .git
+  805  ls -a
+  806  cd ..
+  807  git innit
+  808  git init
+  809  git add Dat1/Task1_adminLinux
+  810  git add Day1/Task1_adminLinux
+  811  ls -a
+  812  cd Taskq
+  813  cd Task1
+  814  cd Day1
+  815  ls -a
+  816  cd Task1
+  817  ls
+  818  cd Embedded-Linux
+  819  ls -a
+  820  rm -rf .git
+  821  ls
+  822  cd ..
+  823  ls -a
+  824  git status
+  825  git commit -m "Task1 Commit"
+  826  git clone Embedded-Linux https://github.com/Aly-Mahmoud/Embedded-Linux.git
+  827  git checkout
+  828  git branch
+  829  git clone https://github.com/Aly-Mahmoud/Embedded-Linux.git
+  830  git branch
+  831  cd Embedded-Linux/
+  832  git branch
+  833  git branch -a
+  834  git checkout Task1_adminLinux
+  835  git branch
+  836  git checkout
+  837  git branch -a
+  838  git status
+  839  git commit
+  840  git add Task1_AdminLinux
+  841  git commit Task1_AdminLinux
+  842  git status
+  843  git push
+  844  git add Task2_AdminLinux/
+  845  git pull
+  846  git add Task2_AdminLinux/
+  847  ls -a
+  848  git checkout Task2_adminLinux
+  849  get branch -a
+  850  git branch -a
+  851  git add Task2_adminLinux
+  852  git status
+  853  git add Task1_AdminLinux
+  854  git commit
+  855  git push
+  856  git add Task2_AdminLinux
+  857  git add Task2_adminLinux
+  858  git status -a
+  859  git status
+  860  clear
+  861  git status
+  862  git checkout Task1_adminLinux 
+  863  git status
+  864  cd ..
+  865  rm -rf Embedded-Linux/
+  866  ls -a
+  867  git init
+  868  git clone https://github.com/Aly-Mahmoud/Embedded-Linux.git
+  869  git branch -a
+  870  git checkout Task1_adminLinux 
+  871  git status
+  872  rm Task1_AdminLinux/
+  873  rm -r Task1_AdminLinux/
+  874  git status
+  875  git add.
+  876  git add .
+  877  git commit
+  878  git push
+  879  git status
+  880  git add .
+  881  git commit
+  882  git push
+  883  get status
+  884  git status
+  885  git pull
+  886  cd ..
+  887  ls -a
+  888  cd ~
+  889  cd ITI/Tasks
+  890  ls -a
+  891  rm -rf .git
+  892  ls
+  893  cd Repo
+  894  clear
+  895  git init
+  896  git clone https://github.com/Aly-Mahmoud/Embedded-Linux.git
+  897  git status
+  898  git branch -a
+  899  git checkout Task1_adminLinux 
+  900  git add .
+  901  git commit
+  902  git push
+  903  cd ..
+  904  git status
+  905  cd Repo
+  906  cd Embedded-Linux/
+  907  git status
+  908  git add .
+  909  git commit
+  910  git push
+  911  git checkout main 
+  912  ls -a
+  913  git checkout Task1_adminLinux 
+  914  git checkout Task2_adminLinux 
+  915  git status
+  916  git add .
+  917  git commit
+  918  git push
+  919  git checkout main
+  920  git pull
+  921  cat /etc/shells
+  922  clear
+  923  printenc
+  924  printenv
+  925  env
+  926  clear
+  927  env
+  928  clear
+  929  ps -p
+  930  ps -p$$
+  931  echo $SHELL
+  932  reliably.echo $SHELL
+  933  clear
+  934  ps -p$$
+  935  echo $SHELL
+  936  echo $0
+  937  echo
+  938  echoaly
+  939  man echo
+  940  echo yara
+  941  echo yara\nad
+  942  echo yara\nada
+  943  echo yara\\nada
+  944  echo yara\\\nada 
+  945  man echo
+  946  echo\n
+  947  echo \n
+  948  echo aly\n ahmed
+  949  echo aly \n ahmed
+  950  echo 123456798
+  951  echo Aly
+  952  echo Nada
+  953  echo clear
+  954  clear
+  955  echo Aly
+  956  echo \\
+  957  echo Aly
+  958  echo
+  959  echo 
+  960  echo Aqua
+  961  echo 28\\7\\2000
+  962  echo \Aly
+  963  echo Alhy
+  964  echo operation
+  965  clear 
+  966  echo Aly
+  967  clear
+  968  PrintPath = echo $PATH
+  969  alia PrintPath = echo $PATH
+  970  alias PrintPath = echo $PATH
+  971  alias PrintPath = echo
+  972  alias PrintPath = Ahmed
+  973  alias 
+  974  ll
+  975  alia PrintPath=echo $PATH
+  976  alias PrintPath=echo $PATH
+  977  alias PrintPath=echo$PATH
+  978  PrintPath
+  979  clear
+  980  alias PrintPath=echo$PATH
+  981  PrintPath
+  982  gcc -o Binary_Search_0 Binary_search.c
+  983  man -k read file
+  984  man readfile
+  985  man read file
+  986  man -k read file
+  987  man 
+  988  man man
+  989  man -f read file
+  990  ls
+  991  read oldpasswd 
+  992  cat oldpasswd
+  993  man read\
+  994  ls
+  995  man read
+  996  cat aly
+  997  read aly
+  998  cat aly
+  999  clear
+ 1000  man read file
+ 1001  clea
+ 1002  clear
+ 1003  set
+ 1004  aly = cat mohamed
+ 1005  set aly = cat mohamed
+ 1006  aly
+ 1007  aly = cat mohamed
+ 1008  aly = mohamed
+ 1009  mylocalvariable = 5
+ 1010  mylocalvariable = "5"
+ 1011  mylocalvariable ="5"
+ 1012  set mylocalvariable ="5"
+ 1013  mylocalvaraible
+ 1014  5
+ 1015  set mylocalvariable ="cat 5"
+ 1016  mylocalvariable
+ 1017  hello=adel
+ 1018  aly=cat mohamed
+ 1019  set
+ 1020  set | grep aly
+ 1021  aly=hussien
+ 1022  set | grep aly
+ 1023  cd < aly
+ 1024  ls
+ 1025  cat aly
+ 1026  cd < docs
+ 1027  cd > docs
+ 1028  clear
+ 1029  cat > aly.txt
+ 1030  cat < aly.txt
+ 1031  cat >> aly.txt
+ 1032  cat < aly.txt
+ 1033  whereis cd
+ 1034  whereis cat
+ 1035  whereis -b cat
+ 1036  locate aly
+ 1037  Locate aly
+ 1038  sudo apt instal locate
+ 1039  man find
+ 1040  find ~ aly
+ 1041  grep aly
+ 1042  grep aly.txt
+ 1043  ls
+ 1044  grep aly.txt
+ 1045  grep aly.txt aly
+ 1046  grep aly.txt bla
+ 1047  grep bl aly.txt
+ 1048  grep -v bl aly.txt
+ 1049  grep -r bl aly.txt
+ 1050  grep -r aly ~
+ 1051  cut aly
+ 1052  cut aly.txt
+ 1053  dmesg
+ 1054  dmesg | grep -i usb
+ 1055  lsmod
+ 1056  lsusb
+ 1057  dmesg | grep -i usb
+ 1058  sudo dmesg | grep -i usb
+ 1059  apt-get update
+ 1060  apt-get update zoom
+ 1061  apt-get updateclear
+ 1062  clear
+ 1063  touch bashscriptexam
+ 1064  vi bashscriptexam 
+ 1065  chmod +x bashscriptexam 
+ 1066  men chmod
+ 1067  chmod men
+ 1068  man chmod
+ 1069  vi bashscriptexam 
+ 1070  ./bashscriptexam 
+ 1071  vi bashscriptexam 
+ 1072  ./bashscriptexam 
+ 1073  vi bashscriptexam
+ 1074  ./bashscriptexam 
+ 1075  vi bashscriptexam
+ 1076  ./bashscrip_analysis 
+ 1077  cat bashscrip_analysis 
+ 1078  ./bashscrip_analysis 
+ 1079  ls
+ 1080  echo app.log
+ 1081  cat app.log
+ 1082  cat app.log | Error:
+ 1083  cat app.log | grep Error:
+ 1084  man sed
+ 1085  man extract
+ 1086  man -f extract
+ 1087  man -e extract
+ 1088  man -r extract
+ 1089  cat app.log | sed -n -e 's/^.*Mbps//p' |cut -c 3-10
+ 1090  man sed
+ 1091  cat app.log | grep -o Error
+ 1092  cat app.log | grep -o Error*
+ 1093  cat app.log | grep -o Error: *
+ 1094  cat app.log | grep -o Error:*
+ 1095  cat app.log | 2>
+ 1096  cat app.log | >2
+ 1097  >2 app.log
+ 1098  grep 2> app.log
+ 1099  grep-o 2> app.log
+ 1100  cat app.log 2> app2.log  
+ 1101  cat app.log 2> app2.log
+ 1102  ls
+ 1103  cat /app.log 2> app2.log
+ 1104  ls
+ 1105  cat app.log
+ 1106  cat app2.log
+ 1107  cat /app.log 2> error.log
+ 1108  cat app.log
+ 1109  clear
+ 1110  ls
+ 1111  cat app.log
+ 1112  cat aly
+ 1113  cat app.log
+ 1114  clear
+ 1115  cat app.log
+ 1116  cat /app.log 2> error.log
+ 1117  cat app.log 2> error.log
+ 1118  grep app.log | cut -d: -f7
+ 1119  man cut
+ 1120  grep app.log | cut -d ' ' -f 4-
+ 1121  grep "Error" app.log | cut -d ' ' -f 4-
+ 1122  cat app.log | grep Error | cut -d ' ' -f 4-
+ 1123  cat app.log | grep Error | cut -d ' ' -f 
+ 1124  cat app.log | grep Error | cut -d ' ' -f2
+ 1125  cat app.log | grep Error | cut -d ' ' -f1
+ 1126  cat app.log | grep Error | cut -d ' ' -f4
+ 1127  cat app.log | grep Error | cut -d ' ' -f 4-
+ 1128  man cut
+ 1129  cat app.log | grep Error | cut -d -f4
+ 1130  cat app.log | grep Error | cut '' -d -f4
+ 1131  cat app.log | grep Error | cut ' ' -d -f4
+ 1132  cat app.log | grep Error | cut ' ' -d -f4
+ 1133  cat app.log | grep Error | cut -d ' ' -f 4-
+ 1134  clear
+ 1135  cat app.log | grep Error | cut -d ' ' -f 4-
+ 1136  cut -d ' ' -f4 app.log
+ 1137  cut -d ' ' -f4- app.log
+ 1138  cut -d ' ' -f4- app.log | grep-o error.log
+ 1139  cut -d ' ' -f4- app.log
+ 1140  cut -d ' ' -f4- app.log > error.log
+ 1141  man grep
+ 1142  grep -c "Connection timeout" error.log
+ 1143  grep -c "Connection timeout" app.log
+ 1144  echo "Connection timeout" |  grep -c "Connection timeout" app.log 
+ 1145  echo "Connection timeout" 
+ 1146  ls
+ 1147  cat aly.txt
+ 1148  echo "aly is testing" > aly.txt
+ 1149  cat aly.txt
+ 1150  echo "aly is testing" >> aly.txt
+ 1151  cat aly.txt
+ 1152  echo "aly is testing" >> aly.txt | grep -c "connection timeout" error.log
+ 1153  cat aly.txt
+ 1154  echo "aly is testing" >> aly.txt | grep -c "connection timeout" app.log
+ 1155  echo "aly is testing" >> aly.txt 
+ 1156  ls aly.txt
+ 1157  grep -c "connection timeout" app.log
+ 1158  grep -c "Connection timeout" app.log
+ 1159  grep -c "Connection timeout" app.log 
+ 1160  grep -c "Connection timeout" app.log >> log_analysis.sh
+ 1161  grep -c "Database connection failed" app.log >> log_analysis.sh
+ 1162  grep -c "File not found" app.log >> log_analysis.sh
+ 1163  echo "Connection timeout" >> analysis.sh 
+ 1164  grep -c "Connection timeout" app.log >> log_analysis.sh
+ 1165  echo "Connection timeout" >> log_analysis.sh 
+ 1166  grep -c "Connection timeout" app.log >> log_analysis.sh
+ 1167  echo "Database connection timeout" >> log_analysis.sh 
+ 1168  grep -c "Database connection failed" app.log >> log_analysis.sh
+ 1169  echo "File not found" >> log_analysis.sh 
+ 1170  grep -c "File not found" app.log >> log_analysis.sh
+ 1171  touch bashscrip_analysis
+ 1172  man echo
+ 1173  cat bashscript_analysis
+ 1174  ls
+ 1175  ls bashscrip_analysis 
+ 1176  cat bashscrip_analysis 
+ 1177  chmod +x log_analysis.sh
+ 1178  ./log_analysis.sh 
+ 1179  log_analysis.sh 
+ 1180  ./log_analysis.sh 
+ 1181  chmod +x bashscrip_analysis.sh
+ 1182  chmod +x bashscrip_analysis
+ 1183  ./bashscript_analysis
+ 1184  ./bashscrip_analysis 
+ 1185  clear
+ 1186  git branch -a
+ 1187  git branch -a
+ 1188  ls -a
+ 1189  git status
+ 1190  git add Quiz_1
+ 1191  git commit
+ 1192  git push
+ 1193  git push https://github.com/Aly-Mahmoud/Embedded-Linux
+ 1194  git branch -b Quiz
+ 1195  git checkout -b Quiz
+ 1196  git branch -a
+ 1197  git status
+ 1198  git add Quiz1
+ 1199  git commit
+ 1200  git push https://github.com/Aly-Mahmoud/Embedded-Linux.git
+ 1201  git branch -a
+ 1202  ls
+ 1203  cd ITI
+ 1204  ls
+ 1205  cd Lectures/
+ 1206  touch Day5_Notes.txt
+ 1207  echo Aly
+ 1208  man tar
+ 1209  touch Day5_Notes.txt
+ 1210  clear
+ 1211  echo \\
+ 1212  echo aly
+ 1213  echo \ as
+ 1214  echo $PATH
+ 1215  echo $PS1
+ 1216  clear
+ 1217  cd ../
+ 1218  cd ..
+ 1219  cd ~
+ 1220  clear
+ 1221  whoami
+ 1222  hostname
+ 1223  date
+ 1224  uptime
+ 1225  uname -a
+ 1226  clear
+ 1227  whoami
+ 1228  hostname
+ 1229  date
+ 1230  uptime
+ 1231  uname -a
+ 1232  free
+ 1233  df
+ 1234  ls
+ 1235  file oldpasswd
+ 1236  du [-sh] oldpasswd 
+ 1237  du [-sh] script_exercise.sh 
+ 1238  du -sh script_exercise.sh 
+ 1239  du script_exercise.sh 
+ 1240  du -sh Pictures/
+ 1241  du -sh ITI
+ 1242  du [-sh] ITI
+ 1243  du ITI
+ 1244  clear
+ 1245  lsusb
+ 1246  lspci
+ 1247  lscpu
+ 1248  lsmod
+ 1249  dmesg
+ 1250  apt install git
+ 1251  sudo apt install git
+ 1252  sudo apt-get install git
+ 1253  sudo apt update git
+ 1254  sudo apt update
+ 1255  apt list --upgradable
+ 1256  apt-get upgrade git
+ 1257  sudo apt-get upgrade git
+ 1258  ls
+ 1259  tar -cvpf ITIarchieve.tar ITI
+ 1260  du ITU
+ 1261  du ITI
+ 1262  du -sh ITI
+ 1263  du -sh ITIarchieve.tar 
+ 1264  tar -cvf ITIarc2.tar ITI
+ 1265  du ITIarc2.tar
+ 1266  bzip2 ITI
+ 1267  ls
+ 1268  bzip2 error.log 
+ 1269  bzip2 ITIarc2.tar
+ 1270  bunzip2 ITIarc2.tar
+ 1271  bunzip2 ITIarc2.tar.bz2
+ 1272  bunzip2 error.log.bz2
+ 1273  gzip aly.tar
+ 1274  gzip aly
+ 1275  gzip -d aly.gz
+ 1276  bzip2 ITIarc2.tar
+ 1277  bunzip2 ITIarc2.tar.bz2
+ 1278  xz aly.tar
+ 1279  xz aly
+ 1280  unxz aly
+ 1281  unxz aly.xz
+ 1282  clear
+ 1283  ls
+ 1284  bzip2 ITI
+ 1285  bzip2 ITI.tar
+ 1286  tar czf archieve.tar.gz ITI
+ 1287  tar cjf archieve.tar.gz ITI
+ 1288  su -
+ 1289  sudo su -
+ 1290  ls -la
+ 1291  cd ~
+ 1292  ls -l
+ 1293  man useradd
+ 1294  useradd nour
+ 1295  sudo useradd nour
+ 1296  su nour
+ 1297  usermod -L nour
+ 1298  sudo usermod -L nour
+ 1299  sudo usermod -U nour
+ 1300  sudo usermod -p nour
+ 1301  sudo usermod -p 1234 nour
+ 1302  su nour
+ 1303  man usermod
+ 1304  sudo usermod -p 1234 nour
+ 1305  cd /
+ 1306  etc/passwd
+ 1307  cd etc/passwd
+ 1308  cat etc/passwd
+ 1309  userdel -r nour
+ 1310  sudo userdel -r nour
+ 1311  cat etc/passwd
+ 1312  cd ~
+ 1313  ls
+ 1314  clear
+ 1315  man useradd
+ 1316  useradd nour
+ 1317  cd `
+ 1318  clear
+ 1319  cd /
+ 1320  su 
+ 1321  sudo su
+ 1322  userdel -r nour
+ 1323  sudo userdel -r nour
+ 1324  userdel -r nour
+ 1325  sudo userdel -r nour
+ 1326  cd /
+ 1327  cat etc/passwd
+ 1328  ls
+ 1329  cd ~
+ 1330  ls
+ 1331  sudo adduser nour
+ 1332  sudo su nour
+ 1333  useradd -p himo 15951
+ 1334  useradd himo -p 15951
+ 1335  sudo useradd himo -p 15951
+ 1336  cd /
+ 1337  cat etc/shadow
+ 1338  sudo cat etc/shadow
+ 1339  su himo
+ 1340  su himo'
+ 1341  sudo su himo
+ 1342  su himo
+ 1343  userdel -r himo
+ 1344  sudo userdel -r himo
+ 1345  clear
+ 1346  groupmems -g aly -l
+ 1347  sudo groupmems -g aly -l
+ 1348  top
+ 1349  clear
+ 1350  man fg
+ 1351  fg --help
+ 1352  fg man
+ 1353  man fg
+ 1354  ps -aux
+ 1355  ls-l
+ 1356  ls -l
+ 1357  touch script 
+ 1358  chmod 7 script
+ 1359  ls -l
+ 1360  chmod 73 script
+ 1361  ls -l
+ 1362  clear
+ 1363  su root
+ 1364  adduser
+ 1365  su root
+ 1366  clear
+ 1367  su root
+ 1368  cut -d: -f1 /etc/passwd
+ 1369  clear
+ 1370  su root
+ 1371  sudo su root
+ 1372  su mo2mn
+ 1373  sudo passwd root
+ 1374  su mo2mn
+ 1375  adduser omar
+ 1376  sudo adduser omar
+ 1377  sudo userdel -r mo2mn
+ 1378  kill 14483
+ 1379  sudo kill 14483
+ 1380  sudo userdel -r mo2mn
+ 1381  kill -q/14483
+ 1382  kill -9/14483
+ 1383  kill -q/14483
+ 1384  kill -9 14483
+ 1385  sudo kill -9 14483
+ 1386  sudo userdel -r mo2mn
+ 1387  cat etc/passwd
+ 1388  cat etc
+ 1389  cd /
+ 1390  cat etc/passwd
+ 1391  sudo userdel -r omar
+ 1392  sudo userdel -r nour
+ 1393  cat etc/passwd
+ 1394  clear
+ 1395  ls -a
+ 1396  vi .bashrc
+ 1397  cd ~
+ 1398  hello
+ 1399  HELLO
+ 1400  cat HELLO
+ 1401  cat $HOSTNAME
+ 1402  cat HELLO
+ 1403  cat $HELLO
+ 1404  clear
+ 1405  cat $HELLO
+ 1406  cat $LOCAL
+ 1407  cat whoami
+ 1408  cat $whoami
+ 1409  whoami
+ 1410  LOCAL
+ 1411  $LOCAL
+ 1412  cat $LOCAL
+ 1413  whoami
+ 1414  cat $HOSTNAME
+ 1415  whoami
+ 1416  clear
+ 1417  echo $HELLO
+ 1418  echo $LOCAL
+ 1419  la
+ 1420  ls | grep .bashrc
+ 1421  if test -f ~/.bashrc;  then echo "File_exists." fi; fi
+ 1422  clear
+ 1423  cd aly
+ 1424  pwd
+ 1425  ls
+ 1426  cd ITI
+ 1427  clear
+ 1428  ls
+ 1429  cd Tasks/
+ 1430  ls
+ 1431  cd Day3
+ 1432  ls
+ 1433  touch BashScript_Day3.sh
+ 1434  gonome -terminal
+ 1435  genome -terminal
+ 1436  gename -terminal
+ 1437  gnome-terminal
+ 1438  clear
+ 1439  cd .
+ 1440  cd ..
+ 1441  cd ~
+ 1442  source .bashrc
+ 1443  cd ITI/Tasks/Day3
+ 1444  ls
+ 1445  source BashScript_Day3.sh
+ 1446  clear
+ 1447  source BashScript_Day3.sh
+ 1448  clear
+ 1449  echo $HELLO
+ 1450  echo $LOCAL
+ 1451  ls -l
+ 1452  chmod +x BashScript_Day3.sh 
+ 1453  ls -l
+ 1454  ./BashScript_Day3.sh 
+ 1455  echo $LOCAL
+ 1456  echo $HELLO
+ 1457  echo $HOSTNAME
+ 1458  whoami
+ 1459  clear
+ 1460  echo $HOSTNAME
+ 1461  echo $HELLO
+ 1462  whoami
+ 1463  echo $LOCAL
+ 1464  cd ~
+ 1465  clear
+ 1466  ls
+ 1467  cd tmp
+ 1468  ls -a
+ 1469  cat /etc/passwd
+ 1470  clear
+ 1471  git checkout
+ 1472  cd ITI/Tasks/Repo
+ 1473  ls -a
+ 1474  git checkout
+ 1475  git branch -a
+ 1476  git checkout -b Task3
+ 1477  git status
+ 1478  git add Task3
+ 1479  git status
+ 1480  git commit -m "This is a commit for third Task"
+ 1481  git push
+ 1482  git push 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
+ 1483  git add remote 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
+ 1484  git add remote https://github.com/Aly-Mahmoud/Embedded-Linux.git
+ 1485  git clone https://github.com/Aly-Mahmoud/Embedded-Linux.git
+ 1486  git clone
+ 1487  git clone git@github.com:Aly-Mahmoud/Embedded-Linux.git
+ 1488  git status
+ 1489  git add Task3
+ 1490  git status
+ 1491  git commit 
+ 1492  git push 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
+ 1493  git status
+ 1494  git ls-files
+ 1495  git rm *
+ 1496  git ls-files
+ 1497  git -r rm *
+ 1498  git rm -r *
+ 1499  git ls-files
+ 1500  git status
+ 1501  git commit 
+ 1502  git push
+ 1503  git remote add Embedded-Linux  https://github.com/Aly-Mahmoud/Embedded-Linux
+ 1504  git push Embedded-Linux 
+ 1505  git status
+ 1506  git add*
+ 1507  git add *
+ 1508  git status
+ 1509  git commit
+ 1510  git push 
+ 1511  git remote add Embedded-Linux  git@github.com:Aly-Mahmoud/Embedded-Linux.git
+ 1512  git push
+ 1513  git push Task3
+ 1514  git push Embedded-Linux 
+ 1515  git status
+ 1516  git add.
+ 1517  git add .
+ 1518  git status
+ 1519  git commit -m "test branch Task3 CLeaning"
+ 1520  git push 
+ 1521  git push Embedded-Linux 
+ 1522  ssh-keygen
+ 1523  cd 
+ 1524  cd ITI/Tasks
+ 1525  cd Repo2
+ 1526  git clone git@github.com:Aly-Mahmoud/Embedded-Linux.git
+ 1527  cd Embedded-Linux/
+ 1528  cd ..
+ 1529  ls -a
+ 1530  cd Embedded-Linux/
+ 1531  ls -a
+ 1532  git branch -a
+ 1533  git switch Task3
+ 1534  git main
+ 1535  git switch main
+ 1536  git switch master
+ 1537  git branch -M Quiz_1
+ 1538  git branch -a
+ 1539  git switch master
+ 1540  git branch -a
+ 1541  git branch -m Quiz_1
+ 1542  git branch -m Quiz1
+ 1543  git branch -a
+ 1544  git branch
+ 1545  git push
+ 1546  git push 
+ 1547  Embedded-Linux
+ 1548  git switch main
+ 1549  git push 
+ 1550  git branch -a
+ 1551  clear
+ 1552  history
+ 1553  history >> /tmp/commands.list

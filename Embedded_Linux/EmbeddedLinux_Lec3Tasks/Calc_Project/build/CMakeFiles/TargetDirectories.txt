@@ -1,0 +1,4 @@
+/home/aly/ITI/EmbeddedSystems_Course/EmbeddedSystem_New_TaskSolution/Embedded_Linux/EmbeddedLinux_Lec3Tasks/Calc_Project/build/CMakeFiles/CalcLibrary.dir
+/home/aly/ITI/EmbeddedSystems_Course/EmbeddedSystem_New_TaskSolution/Embedded_Linux/EmbeddedLinux_Lec3Tasks/Calc_Project/build/CMakeFiles/Calculator.dir
+/home/aly/ITI/EmbeddedSystems_Course/EmbeddedSystem_New_TaskSolution/Embedded_Linux/EmbeddedLinux_Lec3Tasks/Calc_Project/build/CMakeFiles/edit_cache.dir
+/home/aly/ITI/EmbeddedSystems_Course/EmbeddedSystem_New_TaskSolution/Embedded_Linux/EmbeddedLinux_Lec3Tasks/Calc_Project/build/CMakeFiles/rebuild_cache.dir

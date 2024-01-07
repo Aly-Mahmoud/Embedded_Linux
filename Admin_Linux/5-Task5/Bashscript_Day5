@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Create a user 
+sudo adduser yourName --force-badname
+
+# Check if the user was created
+echo "Checking if user yourName was created..."
+sudo cut -d: -f1 /etc/passwd | grep yourName
+
+if id yourName 2>/dev/null | cut -d' ' -f1 | grep -wq "yourName"; then
+    echo "User yourName exists."
+fi
+
+
+# Create a group
+sudo addgroup FamilyName --force-badname
+
+# Check if the group was created
+echo "Checking if group FamilyName was created..."
+sudo cut -d: -f1 /etc/group | grep FamilyName
+if grep -q FamilyName /etc/group; then
+    echo "Group FamilyName exists."
+fi
+
+# Add the user to the group
+sudo usermod -aG FamilyName yourName
+
+# Check if the user is in the group
+echo "Checking if user yourName is in group FamilyName..."
+if groups yourName | cut -d' ' -f 1- | grep -wq "FamilyName"; then
+    echo "User yourName exists in group FamilyName."
+fi
+
+
+# Display user information
+echo "Here is information about user yourName:"
+grep yourName /etc/passwd
+
+# Display group information
+echo "Here is information about group FamilyName:"
+grep FamilyName /etc/group
+
