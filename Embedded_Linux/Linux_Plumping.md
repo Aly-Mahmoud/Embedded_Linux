@@ -1,3 +1,203 @@
+- [What Is Linux Internals/Plumbing?](#what-is-linux-internalsplumbing)
+- [Core Components of Linux Plumbing](#core-components-of-linux-plumbing)
+  - [1. Kernel](#1-kernel)
+    - [Linux Kernel Architecture](#linux-kernel-architecture)
+  - [2.Virtual filesystems - Shim layer](#2virtual-filesystems---shim-layer)
+    - [What is VFS?](#what-is-vfs)
+    - [Why VFS layer?](#why-vfs-layer)
+    - [How VFS works](#how-vfs-works)
+    - [Flow](#flow)
+  - [3. Linux protection rings](#3-linux-protection-rings)
+    - [Problem:](#problem)
+    - [Solution:](#solution)
+    - [What is Protection Rings](#what-is-protection-rings)
+  - [4.System calls](#4system-calls)
+    - [SYSCALL Mechanism](#syscall-mechanism)
+  - [5. Boot Process (Simplified Plumbing Flow)](#5-boot-process-simplified-plumbing-flow)
+    - [1. Power On](#1-power-on)
+    - [2. BIOS/UEFI Initialization](#2-biosuefi-initialization)
+      - [2.1 BIOS / UEFI:](#21-bios--uefi)
+      - [2.2 BIOS vs UEFI:](#22-bios-vs-uefi)
+      - [2.2. POST (Power-On Self-Test)](#22-post-power-on-self-test)
+    - [3. Finding the boot loader](#3-finding-the-boot-loader)
+    - [4. Bootloader Stage](#4-bootloader-stage)
+      - [4.1 Bootloader Responsibilities:](#41-bootloader-responsibilities)
+      - [4.2 Common Bootloaders:](#42-common-bootloaders)
+    - [5. Kernel Initialization](#5-kernel-initialization)
+    - [6. `init` Process (PID 1)](#6-init-process-pid-1)
+    - [6.1. systemd – Modern Init System](#61-systemd--modern-init-system)
+      - [6.1.1 Key Tasks:](#611-key-tasks)
+      - [6.1.2 Targets:](#612-targets)
+    - [Summary: Boot Sequence Overview](#summary-boot-sequence-overview)
+  - [6. Init Systems](#6-init-systems)
+    - [6.1 SysVinit](#61-sysvinit)
+      - [PID 1 – The Init Process](#pid-1--the-init-process)
+      - [Process Management Terms](#process-management-terms)
+      - [SysVinit Overview](#sysvinit-overview)
+      - [Runlevels:](#runlevels)
+      - [SysVinit Process Flow](#sysvinit-process-flow)
+      - [Limitations of SysVinit](#limitations-of-sysvinit)
+      - [Alternatives to SysVinit](#alternatives-to-sysvinit)
+    - [6.2 Upstart](#62-upstart)
+    - [6.3 Systemd](#63-systemd)
+      - [Theoretical](#theoretical)
+      - [Practical](#practical)
+        - [Most important/Basic commands in Systemd](#most-importantbasic-commands-in-systemd)
+        - [Units directories](#units-directories)
+        - [Units file content](#units-file-content)
+  - [7. Inter-Process Communication (IPC)](#7-inter-process-communication-ipc)
+    - [Pipes (`|`)](#pipes-)
+      - [Controlling pipe line speed -\> pipeline viewer (pv)](#controlling-pipe-line-speed---pipeline-viewer-pv)
+      - [Pipeline buffer](#pipeline-buffer)
+        - [1-simple file copy with progress](#1-simple-file-copy-with-progress)
+        - [2-Buffer data between two commands](#2-buffer-data-between-two-commands)
+        - [3-send data over the network(TCP)](#3-send-data-over-the-networktcp)
+        - [4- Throttled transfer](#4--throttled-transfer)
+      - [tee command](#tee-command)
+    - [Named Pipes (FIFOs)](#named-pipes-fifos)
+      - [1st : Make FIFO file](#1st--make-fifo-file)
+      - [2nd : assign a utility to the FIFO file](#2nd--assign-a-utility-to-the-fifo-file)
+      - [3rd : in a new terminal](#3rd--in-a-new-terminal)
+    - [Shared Memory](#shared-memory)
+    - [Message Queues](#message-queues)
+    - [Semaphores](#semaphores)
+    - [Signals](#signals)
+    - [Sockets](#sockets)
+  - [8. Devices  and Device Management](#8-devices--and-device-management)
+    - [File system](#file-system)
+      - [Virtual files](#virtual-files)
+        - [/proc](#proc)
+        - [/sys - Stable Application Binary Interface (ABI)](#sys---stable-application-binary-interface-abi)
+        - [/dev - devices](#dev---devices)
+        - [/run](#run)
+        - [/tmp](#tmp)
+        - [/mnt](#mnt)
+        - [/media](#media)
+      - [Static System Directories](#static-system-directories)
+        - [/Home](#home)
+        - [/USR - Unix system resources](#usr---unix-system-resources)
+        - [| ---\> /BIN](#-----bin)
+        - [|---\> /SBIN](#----sbin)
+        - [|---\>/Local](#---local)
+        - [/BIN - binaries](#bin---binaries)
+        - [/SBIN - system binaries](#sbin---system-binaries)
+        - [/LIB - Library](#lib---library)
+        - [/LIB64](#lib64)
+        - [/ETC - Editable text configuration](#etc---editable-text-configuration)
+        - [/OPT - optional](#opt---optional)
+        - [/VAR - variables](#var---variables)
+        - [/TMP - Temp](#tmp---temp)
+        - [/BOOT](#boot)
+        - [/root](#root)
+        - [/srv](#srv)
+        - [/lost+found](#lostfound)
+      - [Filesystem types:](#filesystem-types)
+    - [Partitioning](#partitioning)
+      - [Partitioning types](#partitioning-types)
+      - [Formatting block devices](#formatting-block-devices)
+    - [RAID - Redundant Array of Independent Disks](#raid---redundant-array-of-independent-disks)
+      - [**Striping:**](#striping)
+      - [**Parity:**](#parity)
+    - [LVM - Logical Volume Management](#lvm---logical-volume-management)
+      - [What is LVM?](#what-is-lvm)
+      - [How It Works](#how-it-works)
+      - [Why Use LVM?](#why-use-lvm)
+    - [Mounting storage:](#mounting-storage)
+      - [Categories of Mounting Technologies](#categories-of-mounting-technologies)
+        - [1.Manual Mounting (Traditional)](#1manual-mounting-traditional)
+        - [2.Virtual Filesystem Mounting](#2virtual-filesystem-mounting)
+        - [3.Filesystem Types](#3filesystem-types)
+        - [4.Automounting Systems](#4automounting-systems)
+        - [5.Network \& Remote Mounting](#5network--remote-mounting)
+    - [PCI and USB](#pci-and-usb)
+      - [PCI](#pci)
+        - [What PCI Does](#what-pci-does)
+        - [Why PCI Was Developed](#why-pci-was-developed)
+        - [How PCI Works (High Level)](#how-pci-works-high-level)
+      - [USB](#usb)
+  - [9. System Libraries](#9-system-libraries)
+    - [glibc – Core C library - GNU C library](#glibc--core-c-library---gnu-c-library)
+    - [libpthread – Threading](#libpthread--threading)
+    - [libdl – Dynamic linking library](#libdl--dynamic-linking-library)
+  - [10. Shells and Terminals](#10-shells-and-terminals)
+    - [Shells](#shells)
+      - [input shell stream](#input-shell-stream)
+        - [1. Interactive Input (Default stdin)](#1-interactive-input-default-stdin)
+        - [2.Redirecting Input from a File](#2redirecting-input-from-a-file)
+        - [3. Using a Here Document (stdin block)](#3-using-a-here-document-stdin-block)
+        - [4.Piping Output to Another Command’s stdin](#4piping-output-to-another-commands-stdin)
+        - [5.string input](#5string-input)
+      - [output shell stream](#output-shell-stream)
+        - [🔄 1. Two Output Streams](#-1-two-output-streams)
+        - [2. Redirect One into the Other](#2-redirect-one-into-the-other)
+        - [3. **`>` is Shorthand for `1>`**](#3--is-shorthand-for-1)
+        - [4. **Send Output to Trash with `/dev/null`**](#4-send-output-to-trash-with-devnull)
+        - [5. **Overwrite vs. Append**](#5-overwrite-vs-append)
+    - [Terminals](#terminals)
+  - [11. Logging ,  sysd-Journald, and daemon](#11-logging---sysd-journald-and-daemon)
+    - [Logging](#logging)
+    - [Log daemon (rsyslog)](#log-daemon-rsyslog)
+    - [Systemd journal](#systemd-journal)
+  - [12. Networking Stack](#12-networking-stack)
+    - [Networking IP](#networking-ip)
+      - [﻿﻿IP4 Layer: IP address](#ip4-layer-ip-address)
+      - [IPv6 Layer: IP address](#ipv6-layer-ip-address)
+    - [Networking Ports](#networking-ports)
+      - [﻿﻿TCP/UDP Layer: Port Numbers](#tcpudp-layer-port-numbers)
+    - [Sockets](#sockets-1)
+      - [Socket history](#socket-history)
+      - [What is socket](#what-is-socket)
+      - [Address Byte Order](#address-byte-order)
+    - [Network layer :](#network-layer-)
+      - [﻿﻿TCP Protocol - SOCK\_STREAM](#tcp-protocol---sock_stream)
+      - [UDP protocol - SOCK\_DGRAM](#udp-protocol---sock_dgram)
+    - [Network Application model](#network-application-model)
+      - [client - server model](#client---server-model)
+    - [Practical examples](#practical-examples)
+      - [netcat command](#netcat-command)
+        - [1. Connect to a Server (Client Mode)](#1-connect-to-a-server-client-mode)
+        - [2. **Start a Listener (Server Mode)**](#2-start-a-listener-server-mode)
+        - [3. **File Transfer with netcat**](#3-file-transfer-with-netcat)
+        - [4. **Simple Chat (2-way communication)**](#4-simple-chat-2-way-communication)
+        - [5. **Port Scanning**](#5-port-scanning)
+        - [6. **Banner Grabbing (Service Info)**](#6-banner-grabbing-service-info)
+        - [🧨 Reverse Shell with netcat (for educational/testing use only!)](#-reverse-shell-with-netcat-for-educationaltesting-use-only)
+      - [socat command](#socat-command)
+        - [1.Simple TCP Client](#1simple-tcp-client)
+        - [2.Start a TCP Server](#2start-a-tcp-server)
+        - [3.TCP Chat (Bidirectional)](#3tcp-chat-bidirectional)
+        - [4.Forward Local Port to Remote Host](#4forward-local-port-to-remote-host)
+        - [5.Transfer a File Over Network](#5transfer-a-file-over-network)
+        - [6.Create a Serial to TCP Bridge](#6create-a-serial-to-tcp-bridge)
+        - [7.Redirect a UNIX Domain Socket to TCP](#7redirect-a-unix-domain-socket-to-tcp)
+      - [inetd / xinetd / systemD listen :](#inetd--xinetd--systemd-listen-)
+        - [1.`inetd` (Internet Service Daemon)](#1inetd-internet-service-daemon)
+        - [2.`xinetd` (Extended Internet Daemon)](#2xinetd-extended-internet-daemon)
+        - [3. `systemd` Socket Activation](#3-systemd-socket-activation)
+      - [NGINX – High-Performance Web Server \& Reverse Proxy](#nginx--high-performance-web-server--reverse-proxy)
+      - [HAProxy – Advanced TCP/HTTP Load Balancer](#haproxy--advanced-tcphttp-load-balancer)
+      - [HAProxy HTTP Load Balancing Example](#haproxy-http-load-balancing-example)
+      - [Telnet](#telnet)
+    - [openssl command :](#openssl-command-)
+    - [IRC command :](#irc-command-)
+  - [13. Users, Groups, and Permissions](#13-users-groups-and-permissions)
+    - [File Permissions: `rwx`](#file-permissions-rwx)
+      - [Changing Permissions](#changing-permissions)
+      - [Ownership](#ownership)
+        - [`chown`: Change owner](#chown-change-owner)
+        - [`chgrp`: Change group](#chgrp-change-group)
+      - [Special Permissions](#special-permissions)
+        - [SUID (Set User ID)](#suid-set-user-id)
+        - [SGID (Set Group ID)](#sgid-set-group-id)
+        - [Sticky Bit](#sticky-bit)
+      - [Default Permissions](#default-permissions)
+        - [`umask`: Default permission mask](#umask-default-permission-mask)
+    - [Advanced: ACLs (Access Control Lists)](#advanced-acls-access-control-lists)
+    - [`lsattr`: List File Attributes](#lsattr-list-file-attributes)
+      - [`chattr`: Change File Attributes](#chattr-change-file-attributes)
+- [🧰 Key Plumbing Tools](#-key-plumbing-tools)
+- [Resources used for this file](#resources-used-for-this-file)
+- [Further Learning Resources](#further-learning-resources)
 ## What Is Linux Internals/Plumbing?
 
 Linux plumbing refers to:
@@ -21,13 +221,11 @@ These components make up the **plumbing** that supports high-level applications 
 ![Kernel Structure](Cache\Kernel_Structure.png)
 
 - **Kernel Design**
-
   - **Most Operating Systems are monolithic including Linux** 
-
     - The operating system is a single executable file
-
+    
     - All of the operating system runs in system space
-
+    
   - **The kernel binary (image) contains**
 
     - Process Management
@@ -58,7 +256,7 @@ These components make up the **plumbing** that supports high-level applications 
 
 ![Linux_Kernel_Architecture](Cache\Linux_Kernel_Architecture.png)
 
-![VFS_Work](Cache\VFS_Work.png)
+ ![VFS_Work](Cache\VFS_Work.png)
 
 ### 2.Virtual filesystems - Shim layer
 
@@ -74,7 +272,7 @@ These components make up the **plumbing** that supports high-level applications 
 
 #### Why VFS layer?
 
-- they wanted to a way to implement new files over time, and not lock Linux, so a **modular design**
+- they wanted a way to implement new files over time, and to not lock Linux, so a **modular design**
 - promotes code reuse
 
 #### How VFS works
@@ -84,8 +282,8 @@ These components make up the **plumbing** that supports high-level applications 
 - this is just an example
 - there are more types of constructs like pipes, dmesg, etc.
 - **VFS** sits between the user space application and the implementers code which defines the actual files system 
-- VFS uses the implementers code to reach device driver and the device driver can access the device itself.
-- VFS uses memory access methods (accessors).
+- **VFS** uses the implementers code to reach device driver and the device driver can access the device itself.
+- **VFS** uses memory access methods (accessors).
 - the file system can worry about how to implements the `open()`, `read()`, `write()`, `close()`
 - VFS can worry about the SYSCALL and where to direct them
 
@@ -134,11 +332,16 @@ These components make up the **plumbing** that supports high-level applications 
 
 ### 3. Linux protection rings
 
-in the old days we had a system supervisory programs which were not part of the OS.
+in the old days 1950s and 60s we had a system supervisory programs which were not part of the OS.
 
 they can not protect themselves from an application,the build in protection only allowed you to run one job at a time.
 
-if it did go down -> you make a warm IPL (intial program load).
+- Its job was incredibly basic: it loaded a program from a punch card or tape into memory, handed over complete control of the entire machine to that program, and waited for it to finish.
+- **The Fatal Flaw:** The supervisor ran in the exact same memory space as the application. It had **no protection hardware**.
+- If an application had a bug and wrote data to the wrong memory address, it wouldn't just crash itself—it would **overwrite the supervisor's own code** in memory.
+- Because the machine could only run **one job at a time**, if the supervisor got destroyed, the whole computer froze.
+
+if it did go down -> you make a warm IPL (intial program load). -> This meant pushing a physical button or entering a command that forced the computer to re-read the supervisor code from a clean source—usually a magnetic drum, tape, or a reserved section of a hard drive—back into memory, without fully powering down the machine (which would have been a "Cold IPL").
 
 #### Problem:
 
@@ -175,7 +378,7 @@ in some other diagrams you can see that they draw the Shell in it's own layer, b
 ![Linux_Protection_Ring_Arch](Cache\Linux_Protection_Ring_Arch.png)
 
 - Linux only uses Ring 0 and Ring 3
-- The device Drivers (demons) are inside the kernel 
+- The device Drivers ( s) are inside the kernel 
   - demon -> device driver
   - deamon -> system service, runs in user land, usually managed by external process
 
@@ -322,7 +525,7 @@ Linux Boot Process – What Happens When You Press the Power Button?
 
 - **BIOS** runs POST and loads the 
 - **MBR** finds the **active (bootable) partition**.
-- MBR loads and runs the **VBR** of that partition.
+- MBR loads and runs the [**VBR**](**Volume Boot Record** ) of that partition.
 
 - the **UEFI** does not need to search for the active bootable partition as it does have a system partition that is FAT32 system partition 
 
