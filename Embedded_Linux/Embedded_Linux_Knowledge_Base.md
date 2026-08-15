@@ -1,203 +1,222 @@
-- [What Is Linux Internals/Plumbing?](#what-is-linux-internalsplumbing)
-- [Core Components of Linux Plumbing](#core-components-of-linux-plumbing)
-  - [1. Kernel](#1-kernel)
-    - [Linux Kernel Architecture](#linux-kernel-architecture)
-  - [2.Virtual filesystems - Shim layer](#2virtual-filesystems---shim-layer)
-    - [What is VFS?](#what-is-vfs)
-    - [Why VFS layer?](#why-vfs-layer)
-    - [How VFS works](#how-vfs-works)
-    - [Flow](#flow)
-  - [3. Linux protection rings](#3-linux-protection-rings)
-    - [Problem:](#problem)
-    - [Solution:](#solution)
-    - [What is Protection Rings](#what-is-protection-rings)
-  - [4.System calls](#4system-calls)
-    - [SYSCALL Mechanism](#syscall-mechanism)
-  - [5. Boot Process (Simplified Plumbing Flow)](#5-boot-process-simplified-plumbing-flow)
-    - [1. Power On](#1-power-on)
-    - [2. BIOS/UEFI Initialization](#2-biosuefi-initialization)
-      - [2.1 BIOS / UEFI:](#21-bios--uefi)
-      - [2.2 BIOS vs UEFI:](#22-bios-vs-uefi)
-      - [2.2. POST (Power-On Self-Test)](#22-post-power-on-self-test)
-    - [3. Finding the boot loader](#3-finding-the-boot-loader)
-    - [4. Bootloader Stage](#4-bootloader-stage)
-      - [4.1 Bootloader Responsibilities:](#41-bootloader-responsibilities)
-      - [4.2 Common Bootloaders:](#42-common-bootloaders)
-    - [5. Kernel Initialization](#5-kernel-initialization)
-    - [6. `init` Process (PID 1)](#6-init-process-pid-1)
-    - [6.1. systemd – Modern Init System](#61-systemd--modern-init-system)
-      - [6.1.1 Key Tasks:](#611-key-tasks)
-      - [6.1.2 Targets:](#612-targets)
-    - [Summary: Boot Sequence Overview](#summary-boot-sequence-overview)
-  - [6. Init Systems](#6-init-systems)
-    - [6.1 SysVinit](#61-sysvinit)
-      - [PID 1 – The Init Process](#pid-1--the-init-process)
-      - [Process Management Terms](#process-management-terms)
-      - [SysVinit Overview](#sysvinit-overview)
-      - [Runlevels:](#runlevels)
-      - [SysVinit Process Flow](#sysvinit-process-flow)
-      - [Limitations of SysVinit](#limitations-of-sysvinit)
-      - [Alternatives to SysVinit](#alternatives-to-sysvinit)
-    - [6.2 Upstart](#62-upstart)
-    - [6.3 Systemd](#63-systemd)
-      - [Theoretical](#theoretical)
-      - [Practical](#practical)
-        - [Most important/Basic commands in Systemd](#most-importantbasic-commands-in-systemd)
-        - [Units directories](#units-directories)
-        - [Units file content](#units-file-content)
-  - [7. Inter-Process Communication (IPC)](#7-inter-process-communication-ipc)
-    - [Pipes (`|`)](#pipes-)
-      - [Controlling pipe line speed -\> pipeline viewer (pv)](#controlling-pipe-line-speed---pipeline-viewer-pv)
-      - [Pipeline buffer](#pipeline-buffer)
-        - [1-simple file copy with progress](#1-simple-file-copy-with-progress)
-        - [2-Buffer data between two commands](#2-buffer-data-between-two-commands)
-        - [3-send data over the network(TCP)](#3-send-data-over-the-networktcp)
-        - [4- Throttled transfer](#4--throttled-transfer)
-      - [tee command](#tee-command)
-    - [Named Pipes (FIFOs)](#named-pipes-fifos)
-      - [1st : Make FIFO file](#1st--make-fifo-file)
-      - [2nd : assign a utility to the FIFO file](#2nd--assign-a-utility-to-the-fifo-file)
-      - [3rd : in a new terminal](#3rd--in-a-new-terminal)
-    - [Shared Memory](#shared-memory)
-    - [Message Queues](#message-queues)
-    - [Semaphores](#semaphores)
-    - [Signals](#signals)
-    - [Sockets](#sockets)
-  - [8. Devices  and Device Management](#8-devices--and-device-management)
-    - [File system](#file-system)
-      - [Virtual files](#virtual-files)
-        - [/proc](#proc)
-        - [/sys - Stable Application Binary Interface (ABI)](#sys---stable-application-binary-interface-abi)
-        - [/dev - devices](#dev---devices)
-        - [/run](#run)
-        - [/tmp](#tmp)
-        - [/mnt](#mnt)
-        - [/media](#media)
-      - [Static System Directories](#static-system-directories)
-        - [/Home](#home)
-        - [/USR - Unix system resources](#usr---unix-system-resources)
-        - [| ---\> /BIN](#-----bin)
-        - [|---\> /SBIN](#----sbin)
-        - [|---\>/Local](#---local)
-        - [/BIN - binaries](#bin---binaries)
-        - [/SBIN - system binaries](#sbin---system-binaries)
-        - [/LIB - Library](#lib---library)
-        - [/LIB64](#lib64)
-        - [/ETC - Editable text configuration](#etc---editable-text-configuration)
-        - [/OPT - optional](#opt---optional)
-        - [/VAR - variables](#var---variables)
-        - [/TMP - Temp](#tmp---temp)
-        - [/BOOT](#boot)
-        - [/root](#root)
-        - [/srv](#srv)
-        - [/lost+found](#lostfound)
-      - [Filesystem types:](#filesystem-types)
-    - [Partitioning](#partitioning)
-      - [Partitioning types](#partitioning-types)
-      - [Formatting block devices](#formatting-block-devices)
-    - [RAID - Redundant Array of Independent Disks](#raid---redundant-array-of-independent-disks)
-      - [**Striping:**](#striping)
-      - [**Parity:**](#parity)
-    - [LVM - Logical Volume Management](#lvm---logical-volume-management)
-      - [What is LVM?](#what-is-lvm)
-      - [How It Works](#how-it-works)
-      - [Why Use LVM?](#why-use-lvm)
-    - [Mounting storage:](#mounting-storage)
-      - [Categories of Mounting Technologies](#categories-of-mounting-technologies)
-        - [1.Manual Mounting (Traditional)](#1manual-mounting-traditional)
-        - [2.Virtual Filesystem Mounting](#2virtual-filesystem-mounting)
-        - [3.Filesystem Types](#3filesystem-types)
-        - [4.Automounting Systems](#4automounting-systems)
-        - [5.Network \& Remote Mounting](#5network--remote-mounting)
-    - [PCI and USB](#pci-and-usb)
-      - [PCI](#pci)
-        - [What PCI Does](#what-pci-does)
-        - [Why PCI Was Developed](#why-pci-was-developed)
-        - [How PCI Works (High Level)](#how-pci-works-high-level)
-      - [USB](#usb)
-  - [9. System Libraries](#9-system-libraries)
-    - [glibc – Core C library - GNU C library](#glibc--core-c-library---gnu-c-library)
-    - [libpthread – Threading](#libpthread--threading)
-    - [libdl – Dynamic linking library](#libdl--dynamic-linking-library)
-  - [10. Shells and Terminals](#10-shells-and-terminals)
-    - [Shells](#shells)
-      - [input shell stream](#input-shell-stream)
-        - [1. Interactive Input (Default stdin)](#1-interactive-input-default-stdin)
-        - [2.Redirecting Input from a File](#2redirecting-input-from-a-file)
-        - [3. Using a Here Document (stdin block)](#3-using-a-here-document-stdin-block)
-        - [4.Piping Output to Another Command’s stdin](#4piping-output-to-another-commands-stdin)
-        - [5.string input](#5string-input)
-      - [output shell stream](#output-shell-stream)
-        - [🔄 1. Two Output Streams](#-1-two-output-streams)
-        - [2. Redirect One into the Other](#2-redirect-one-into-the-other)
-        - [3. **`>` is Shorthand for `1>`**](#3--is-shorthand-for-1)
-        - [4. **Send Output to Trash with `/dev/null`**](#4-send-output-to-trash-with-devnull)
-        - [5. **Overwrite vs. Append**](#5-overwrite-vs-append)
-    - [Terminals](#terminals)
-  - [11. Logging ,  sysd-Journald, and daemon](#11-logging---sysd-journald-and-daemon)
-    - [Logging](#logging)
-    - [Log daemon (rsyslog)](#log-daemon-rsyslog)
-    - [Systemd journal](#systemd-journal)
-  - [12. Networking Stack](#12-networking-stack)
-    - [Networking IP](#networking-ip)
-      - [﻿﻿IP4 Layer: IP address](#ip4-layer-ip-address)
-      - [IPv6 Layer: IP address](#ipv6-layer-ip-address)
-    - [Networking Ports](#networking-ports)
-      - [﻿﻿TCP/UDP Layer: Port Numbers](#tcpudp-layer-port-numbers)
-    - [Sockets](#sockets-1)
-      - [Socket history](#socket-history)
-      - [What is socket](#what-is-socket)
-      - [Address Byte Order](#address-byte-order)
-    - [Network layer :](#network-layer-)
-      - [﻿﻿TCP Protocol - SOCK\_STREAM](#tcp-protocol---sock_stream)
-      - [UDP protocol - SOCK\_DGRAM](#udp-protocol---sock_dgram)
-    - [Network Application model](#network-application-model)
-      - [client - server model](#client---server-model)
-    - [Practical examples](#practical-examples)
-      - [netcat command](#netcat-command)
-        - [1. Connect to a Server (Client Mode)](#1-connect-to-a-server-client-mode)
-        - [2. **Start a Listener (Server Mode)**](#2-start-a-listener-server-mode)
-        - [3. **File Transfer with netcat**](#3-file-transfer-with-netcat)
-        - [4. **Simple Chat (2-way communication)**](#4-simple-chat-2-way-communication)
-        - [5. **Port Scanning**](#5-port-scanning)
-        - [6. **Banner Grabbing (Service Info)**](#6-banner-grabbing-service-info)
-        - [🧨 Reverse Shell with netcat (for educational/testing use only!)](#-reverse-shell-with-netcat-for-educationaltesting-use-only)
-      - [socat command](#socat-command)
-        - [1.Simple TCP Client](#1simple-tcp-client)
-        - [2.Start a TCP Server](#2start-a-tcp-server)
-        - [3.TCP Chat (Bidirectional)](#3tcp-chat-bidirectional)
-        - [4.Forward Local Port to Remote Host](#4forward-local-port-to-remote-host)
-        - [5.Transfer a File Over Network](#5transfer-a-file-over-network)
-        - [6.Create a Serial to TCP Bridge](#6create-a-serial-to-tcp-bridge)
-        - [7.Redirect a UNIX Domain Socket to TCP](#7redirect-a-unix-domain-socket-to-tcp)
-      - [inetd / xinetd / systemD listen :](#inetd--xinetd--systemd-listen-)
-        - [1.`inetd` (Internet Service Daemon)](#1inetd-internet-service-daemon)
-        - [2.`xinetd` (Extended Internet Daemon)](#2xinetd-extended-internet-daemon)
-        - [3. `systemd` Socket Activation](#3-systemd-socket-activation)
-      - [NGINX – High-Performance Web Server \& Reverse Proxy](#nginx--high-performance-web-server--reverse-proxy)
-      - [HAProxy – Advanced TCP/HTTP Load Balancer](#haproxy--advanced-tcphttp-load-balancer)
-      - [HAProxy HTTP Load Balancing Example](#haproxy-http-load-balancing-example)
-      - [Telnet](#telnet)
-    - [openssl command :](#openssl-command-)
-    - [IRC command :](#irc-command-)
-  - [13. Users, Groups, and Permissions](#13-users-groups-and-permissions)
-    - [File Permissions: `rwx`](#file-permissions-rwx)
-      - [Changing Permissions](#changing-permissions)
-      - [Ownership](#ownership)
-        - [`chown`: Change owner](#chown-change-owner)
-        - [`chgrp`: Change group](#chgrp-change-group)
-      - [Special Permissions](#special-permissions)
-        - [SUID (Set User ID)](#suid-set-user-id)
-        - [SGID (Set Group ID)](#sgid-set-group-id)
-        - [Sticky Bit](#sticky-bit)
-      - [Default Permissions](#default-permissions)
-        - [`umask`: Default permission mask](#umask-default-permission-mask)
-    - [Advanced: ACLs (Access Control Lists)](#advanced-acls-access-control-lists)
-    - [`lsattr`: List File Attributes](#lsattr-list-file-attributes)
-      - [`chattr`: Change File Attributes](#chattr-change-file-attributes)
-- [🧰 Key Plumbing Tools](#-key-plumbing-tools)
-- [Resources used for this file](#resources-used-for-this-file)
-- [Further Learning Resources](#further-learning-resources)
+- [Embedded Linux Knowledge Base](#embedded-linux-knowledge-base)
+  - [What Is Linux Internals/Plumbing?](#what-is-linux-internalsplumbing)
+  - [Core Components of Linux Plumbing](#core-components-of-linux-plumbing)
+    - [1. Kernel](#1-kernel)
+      - [Linux Kernel Architecture](#linux-kernel-architecture)
+    - [2.Virtual filesystems - Shim layer](#2virtual-filesystems---shim-layer)
+      - [What is VFS?](#what-is-vfs)
+      - [Why VFS layer?](#why-vfs-layer)
+      - [How VFS works](#how-vfs-works)
+      - [Flow](#flow)
+    - [3. Linux protection rings](#3-linux-protection-rings)
+      - [Problem:](#problem)
+      - [Solution:](#solution)
+      - [What is Protection Rings](#what-is-protection-rings)
+    - [4.System calls](#4system-calls)
+      - [SYSCALL Mechanism](#syscall-mechanism)
+    - [5. Boot Process (Simplified Plumbing Flow)](#5-boot-process-simplified-plumbing-flow)
+      - [1. Power On](#1-power-on)
+      - [2. BIOS/UEFI Initialization](#2-biosuefi-initialization)
+        - [2.1 BIOS / UEFI:](#21-bios--uefi)
+        - [2.2 BIOS vs UEFI:](#22-bios-vs-uefi)
+        - [2.2. POST (Power-On Self-Test)](#22-post-power-on-self-test)
+      - [3. Finding the boot loader](#3-finding-the-boot-loader)
+      - [4. Bootloader Stage](#4-bootloader-stage)
+        - [4.1 Bootloader Responsibilities:](#41-bootloader-responsibilities)
+        - [4.2 Common Bootloaders:](#42-common-bootloaders)
+      - [5. Kernel Initialization](#5-kernel-initialization)
+      - [6. `init` Process (PID 1)](#6-init-process-pid-1)
+      - [6.1. systemd – Modern Init System](#61-systemd--modern-init-system)
+        - [6.1.1 Key Tasks:](#611-key-tasks)
+        - [6.1.2 Targets:](#612-targets)
+      - [Summary: Boot Sequence Overview](#summary-boot-sequence-overview)
+    - [6. Init Systems](#6-init-systems)
+      - [6.1 SysVinit](#61-sysvinit)
+        - [PID 1 – The Init Process](#pid-1--the-init-process)
+        - [Process Management Terms](#process-management-terms)
+        - [SysVinit Overview](#sysvinit-overview)
+        - [Runlevels:](#runlevels)
+        - [SysVinit Process Flow](#sysvinit-process-flow)
+        - [Limitations of SysVinit](#limitations-of-sysvinit)
+        - [Alternatives to SysVinit](#alternatives-to-sysvinit)
+      - [6.2 Upstart](#62-upstart)
+      - [6.3 Systemd](#63-systemd)
+        - [Theoretical](#theoretical)
+        - [Practical](#practical)
+          - [Most important/Basic commands in Systemd](#most-importantbasic-commands-in-systemd)
+          - [Units directories](#units-directories)
+          - [Units file content](#units-file-content)
+    - [7. Inter-Process Communication (IPC)](#7-inter-process-communication-ipc)
+      - [Pipes (`|`)](#pipes-)
+        - [Controlling pipe line speed -\> pipeline viewer (pv)](#controlling-pipe-line-speed---pipeline-viewer-pv)
+        - [Pipeline buffer](#pipeline-buffer)
+          - [1-simple file copy with progress](#1-simple-file-copy-with-progress)
+          - [2-Buffer data between two commands](#2-buffer-data-between-two-commands)
+          - [3-send data over the network(TCP)](#3-send-data-over-the-networktcp)
+          - [4- Throttled transfer](#4--throttled-transfer)
+        - [tee command](#tee-command)
+      - [Named Pipes (FIFOs)](#named-pipes-fifos)
+        - [1st : Make FIFO file](#1st--make-fifo-file)
+        - [2nd : assign a utility to the FIFO file](#2nd--assign-a-utility-to-the-fifo-file)
+        - [3rd : in a new terminal](#3rd--in-a-new-terminal)
+      - [Shared Memory](#shared-memory)
+      - [Message Queues](#message-queues)
+      - [Semaphores](#semaphores)
+      - [Signals](#signals)
+      - [Sockets](#sockets)
+    - [8. Devices  and Device Management](#8-devices--and-device-management)
+      - [File system](#file-system)
+        - [Virtual files](#virtual-files)
+          - [/proc](#proc)
+          - [/sys - Stable Application Binary Interface (ABI)](#sys---stable-application-binary-interface-abi)
+          - [/dev - devices](#dev---devices)
+          - [/run](#run)
+          - [/tmp](#tmp)
+          - [/mnt](#mnt)
+          - [/media](#media)
+        - [Static System Directories](#static-system-directories)
+          - [/Home](#home)
+          - [/USR - Unix system resources](#usr---unix-system-resources)
+          - [| ---\> /BIN](#-----bin)
+          - [|---\> /SBIN](#----sbin)
+          - [|---\>/Local](#---local)
+          - [/BIN - binaries](#bin---binaries)
+          - [/SBIN - system binaries](#sbin---system-binaries)
+          - [/LIB - Library](#lib---library)
+          - [/LIB64](#lib64)
+          - [/ETC - Editable text configuration](#etc---editable-text-configuration)
+          - [/OPT - optional](#opt---optional)
+          - [/VAR - variables](#var---variables)
+          - [/TMP - Temp](#tmp---temp)
+          - [/BOOT](#boot)
+          - [/root](#root)
+          - [/srv](#srv)
+          - [/lost+found](#lostfound)
+        - [Filesystem types:](#filesystem-types)
+      - [Partitioning](#partitioning)
+        - [Partitioning types](#partitioning-types)
+        - [Formatting block devices](#formatting-block-devices)
+      - [RAID - Redundant Array of Independent Disks](#raid---redundant-array-of-independent-disks)
+        - [**Striping:**](#striping)
+        - [**Parity:**](#parity)
+      - [LVM - Logical Volume Management](#lvm---logical-volume-management)
+        - [What is LVM?](#what-is-lvm)
+        - [How It Works](#how-it-works)
+        - [Why Use LVM?](#why-use-lvm)
+      - [Mounting storage:](#mounting-storage)
+        - [Categories of Mounting Technologies](#categories-of-mounting-technologies)
+          - [1.Manual Mounting (Traditional)](#1manual-mounting-traditional)
+          - [2.Virtual Filesystem Mounting](#2virtual-filesystem-mounting)
+          - [3.Filesystem Types](#3filesystem-types)
+          - [4.Automounting Systems](#4automounting-systems)
+          - [5.Network \& Remote Mounting](#5network--remote-mounting)
+      - [PCI and USB](#pci-and-usb)
+        - [PCI](#pci)
+          - [What PCI Does](#what-pci-does)
+          - [Why PCI Was Developed](#why-pci-was-developed)
+          - [How PCI Works (High Level)](#how-pci-works-high-level)
+        - [USB](#usb)
+    - [9. System Libraries](#9-system-libraries)
+      - [glibc – Core C library - GNU C library](#glibc--core-c-library---gnu-c-library)
+      - [libpthread – Threading](#libpthread--threading)
+      - [libdl – Dynamic linking library](#libdl--dynamic-linking-library)
+    - [10. Shells and Terminals](#10-shells-and-terminals)
+      - [Shells](#shells)
+        - [input shell stream](#input-shell-stream)
+          - [1. Interactive Input (Default stdin)](#1-interactive-input-default-stdin)
+          - [2.Redirecting Input from a File](#2redirecting-input-from-a-file)
+          - [3. Using a Here Document (stdin block)](#3-using-a-here-document-stdin-block)
+          - [4.Piping Output to Another Command’s stdin](#4piping-output-to-another-commands-stdin)
+          - [5.string input](#5string-input)
+        - [output shell stream](#output-shell-stream)
+          - [🔄 1. Two Output Streams](#-1-two-output-streams)
+          - [2. Redirect One into the Other](#2-redirect-one-into-the-other)
+          - [3. **`>` is Shorthand for `1>`**](#3--is-shorthand-for-1)
+          - [4. **Send Output to Trash with `/dev/null`**](#4-send-output-to-trash-with-devnull)
+          - [5. **Overwrite vs. Append**](#5-overwrite-vs-append)
+      - [Terminals](#terminals)
+    - [11. Logging ,  sysd-Journald, and daemon](#11-logging---sysd-journald-and-daemon)
+      - [Logging](#logging)
+      - [Log daemon (rsyslog)](#log-daemon-rsyslog)
+      - [Systemd journal](#systemd-journal)
+    - [12. Networking Stack](#12-networking-stack)
+      - [Networking IP](#networking-ip)
+        - [﻿﻿IP4 Layer: IP address](#ip4-layer-ip-address)
+        - [IPv6 Layer: IP address](#ipv6-layer-ip-address)
+      - [Networking Ports](#networking-ports)
+        - [﻿﻿TCP/UDP Layer: Port Numbers](#tcpudp-layer-port-numbers)
+      - [Sockets](#sockets-1)
+        - [Socket history](#socket-history)
+        - [What is socket](#what-is-socket)
+        - [Address Byte Order](#address-byte-order)
+      - [Network layer :](#network-layer-)
+        - [﻿﻿TCP Protocol - SOCK\_STREAM](#tcp-protocol---sock_stream)
+        - [UDP protocol - SOCK\_DGRAM](#udp-protocol---sock_dgram)
+      - [Network Application model](#network-application-model)
+        - [client - server model](#client---server-model)
+      - [Practical examples](#practical-examples)
+        - [netcat command](#netcat-command)
+          - [1. Connect to a Server (Client Mode)](#1-connect-to-a-server-client-mode)
+          - [2. **Start a Listener (Server Mode)**](#2-start-a-listener-server-mode)
+          - [3. **File Transfer with netcat**](#3-file-transfer-with-netcat)
+          - [4. **Simple Chat (2-way communication)**](#4-simple-chat-2-way-communication)
+          - [5. **Port Scanning**](#5-port-scanning)
+          - [6. **Banner Grabbing (Service Info)**](#6-banner-grabbing-service-info)
+          - [🧨 Reverse Shell with netcat (for educational/testing use only!)](#-reverse-shell-with-netcat-for-educationaltesting-use-only)
+        - [socat command](#socat-command)
+          - [1.Simple TCP Client](#1simple-tcp-client)
+          - [2.Start a TCP Server](#2start-a-tcp-server)
+          - [3.TCP Chat (Bidirectional)](#3tcp-chat-bidirectional)
+          - [4.Forward Local Port to Remote Host](#4forward-local-port-to-remote-host)
+          - [5.Transfer a File Over Network](#5transfer-a-file-over-network)
+          - [6.Create a Serial to TCP Bridge](#6create-a-serial-to-tcp-bridge)
+          - [7.Redirect a UNIX Domain Socket to TCP](#7redirect-a-unix-domain-socket-to-tcp)
+        - [inetd / xinetd / systemD listen :](#inetd--xinetd--systemd-listen-)
+          - [1.`inetd` (Internet Service Daemon)](#1inetd-internet-service-daemon)
+          - [2.`xinetd` (Extended Internet Daemon)](#2xinetd-extended-internet-daemon)
+          - [3. `systemd` Socket Activation](#3-systemd-socket-activation)
+        - [NGINX – High-Performance Web Server \& Reverse Proxy](#nginx--high-performance-web-server--reverse-proxy)
+        - [HAProxy – Advanced TCP/HTTP Load Balancer](#haproxy--advanced-tcphttp-load-balancer)
+        - [HAProxy HTTP Load Balancing Example](#haproxy-http-load-balancing-example)
+        - [Telnet](#telnet)
+      - [openssl command :](#openssl-command-)
+      - [IRC command :](#irc-command-)
+    - [13. Users, Groups, and Permissions](#13-users-groups-and-permissions)
+      - [File Permissions: `rwx`](#file-permissions-rwx)
+        - [Changing Permissions](#changing-permissions)
+        - [Ownership](#ownership)
+          - [`chown`: Change owner](#chown-change-owner)
+          - [`chgrp`: Change group](#chgrp-change-group)
+        - [Special Permissions](#special-permissions)
+          - [SUID (Set User ID)](#suid-set-user-id)
+          - [SGID (Set Group ID)](#sgid-set-group-id)
+          - [Sticky Bit](#sticky-bit)
+        - [Default Permissions](#default-permissions)
+          - [`umask`: Default permission mask](#umask-default-permission-mask)
+      - [Advanced: ACLs (Access Control Lists)](#advanced-acls-access-control-lists)
+      - [`lsattr`: List File Attributes](#lsattr-list-file-attributes)
+        - [`chattr`: Change File Attributes](#chattr-change-file-attributes)
+  - [🧰 Key Plumbing Tools](#-key-plumbing-tools)
+  - [Resources used for this file](#resources-used-for-this-file)
+  - [Further Learning Resources](#further-learning-resources)
+
+# Embedded Linux Knowledge Base
+
+> **Status:** Living document
+>
+> This document represents my current knowledge, not everything I have ever studied.
+>
+> **Rule:** If it is not represented here, it should not be assumed that I know it.
+>
+> Knowledge is written in my own understanding and terminology. Source material is not copied merely for completeness.
+>
+> This document is continuously refined through:
+> - Bootlin study
+> - practical work
+> - questioning
+> - interview preparation
+> - correcting misunderstandings
+
 ## What Is Linux Internals/Plumbing?
 
 Linux plumbing refers to:
@@ -3357,6 +3376,145 @@ ssh user@host
 
 -----------
 
+
+#### Wifi 
+
+```
+                         USERSPACE
+═══════════════════════════════════════════════════════════════
+
+                    ┌───────────────┐
+                    │  iw(command)  │
+                    │   CLI tool    │
+                    └───────┬───────┘
+                            │
+                    "configure/query Wi-Fi"
+                            │
+                    ┌───────┴────────-┐
+                    │                 │
+                    │ wpa_supplicant  │
+                    │                 │
+                    │ Wi-Fi connection│
+                    │ & authentication│
+                    └───────┬────────-┘
+                            │
+════════════════════════════╪══════════════════════════════════
+                         KERNEL SPACE
+                            │
+                            ▼
+                       ┌───────-──┐
+                       │nl80211   │
+                       │          │
+                       │ Kernel ↔ │
+                       │userspace │
+                       │ Wi-Fi    │
+                       │interface │
+                       └────┬───-─┘
+                            │
+                            ▼
+                       ┌────────-----─┐
+                       │cfg80211      │
+                       │              │
+                       │ Common       │
+                       │ Wi-Fi        │
+                       │configuration │
+                       │framework     │
+                       └────┬───-----─┘
+                            │
+                 ┌──────────┴───────────┐
+                 │                      │
+                 ▼                      ▼
+          ┌─────────────┐        ┌──────────────┐
+          │  mac80211   │        │  Full-MAC    │
+          │             │        │    driver    │
+          │ Generic     │        │              │
+          │ 802.11 MAC  │        │ MAC handled  │
+          │ framework   │        │ largely by   │
+          │             │        │ hardware/    │
+          │ Handles     │        │ firmware     │
+          │ common MAC  │        │              │
+          │ functionality│       └──────┬───────┘
+          └──────┬──────┘               │
+                 │                      │
+                 ▼                      │
+          ┌──────────────┐              │
+          │ Wi-Fi        │              │
+          │ hardware     │◄─────────────┘
+          │ driver       │
+          │              │
+          │ Hardware-    │
+          │ specific     │
+          │ code for     │
+          │ chipset      │
+          └──────┬───────┘
+                 │
+═════════════════╪════════════════════════════════════════════
+                 │
+                 ▼
+              HARDWARE
+          ┌──────────────┐
+          │ Wi-Fi chipset│
+          │    / radio   │
+          └──────────────┘
+```
+#### Bluetooth
+
+BlueZ
+
+**BlueZ is the official Linux Bluetooth protocol stack.**
+
+```
+                                      USERSPACE
+                    ══════════════════════════════════════════
+                                      Applications
+                                           │socket(AF_BLUETOOTH, ...)
+                                           ▼
+────────────────────────────────────────────────────────────────────────────----
+│                             Linux Bluetooth stack                            │
+│                                     BlueZ                                    │
+│                                       ├── bluetoothd  ← main Bluetooth daemon│
+│ command-line tool ← bluetoothctl    ──┤                                      │
+│                                       ├── libraries/APIs                     │
+│other Bluetooth utilities/components ──┤                                      │
+│                                       │                                      │
+────────────────────────────────────────┼──────-─────────────────────────────---
+	                                    │
+	                      ═══════════ KERNEL ═══════════
+	                                    │
+	                            Bluetooth subsystem
+	                                    │
+	                                    ▼
+	                          Bluetooth HCI driver
+	                                    │
+	                                    ▼
+	                             HCI interface
+	                                     │
+	             ┌───────────────────────┴────────────────────────┐
+	             │                                                │
+	             │ Host → Controller                              │
+	             │                                                │
+	             │ "Start scanning."                              │
+	             │ "Connect to this device."                      │
+	             │ "Transmit this Bluetooth data."                │
+	             │                                                │
+	             │ Controller → Host                              │
+	             │                                                │
+	             │ "I found a device."                            │
+	             │ "The connection succeeded."                    │
+	             │ "Here's some received data."                   │
+	             │                                                │
+	             └───────────────────────┬────────────────────────┘
+                                     │
+                      ═════════════════════════════════════
+                                     ▼
+                             Bluetooth controller
+                              (chip / firmware)
+                                     │
+                                     ▼
+                              Bluetooth radio
+```
+
+
 ### 13. Users, Groups, and Permissions
 
 Security and access control.
@@ -3602,9 +3760,227 @@ chattr -i test.txt         # Now you can delete/edit
 - UID, GID, `passwd`, `shadow`
 - Permissions: `chmod`, `chown`, `setuid`
 
+-----------------
+
+
+
+
+
 ------
 
-## 🧰 Key Plumbing Tools
+
+
+### 14. Containers
+
+It's important to know that container is not a virtual machine 
+
+VM is:
+
+``` VM
+Application
+    ↓
+Guest OS
+    ↓
+Virtual hardware
+    ↓
+Hypervisor
+    ↓
+Real hardware
+```
+
+Container is:
+
+```
+	  Application/User/Developer
+				   │
+				   ▼
+	Container filesystem + libraries
+------------------------------------------
+|			  Docker CLI                 |
+|				   │                     |
+|				   ▼                     |
+|				Docker                   |
+|			 Engine / API                |
+|				   │                     |
+|				   ▼                     |
+|			   containerd                |
+|				   │                     |
+|				   ▼                     |
+|				 runc                    |
+|				   │                     |
+|				   ▼                     |
+------------------------------------------
+			Linux kernel
+				   │
+				   ▼
+				Hardware
+```
+
+#### runC:
+Stands for run container (debatable), and it's a low level Container runtime
+So it's role is to:
+- clone a process
+- Setup the process "Configure namespaces, mounts, capabilities, cgroups" 
+- Run the process
+
+#### Containerd:
+Stands for Container daemon as in a system service
+it's role is:
+- Manage the creation of container
+- Start/Stop the container
+- Manage images. Image as in "App/Root FS/ Lib" and Managing as in Pulling and running
+- Managing container FS snapshot 
+	- When having a multiple container and the container can share the read only parts (called layer)
+	- and have snapshots for the other parts that are unique to each container that are writable
+	- this means less time, effort, and memory loading images for multiple continuers 
+
+#### Docker Engine:
+role:
+- Image building "Has the configuration of how to build an image"
+- Image distribution "Sharing with the docker hub" 
+- container management "Manages multiple containers list them, delete them, configure them, etc."
+- Manage volume for containers
+- handle API
+- Developer workflow
+
+#### Docker CLI
+role:
+- Developer User interface
+
+Docker doesn't make a separate mini-OS. It ultimately creates an ordinary Linux process whose view of the system has been isolated by the Linux kern
+
+### 15. different Software packaging systems
+#### Snap 
+-  made by Ubuntu 
+- Centralized store, and package management
+- made for desktops, servers, and Embedded systems 
+
+#### flatpak
+- Open-source made by Redhat engineer
+- Centralized store, package management
+- made for desktop applications
+
+#### AppImage
+- Portable app package
+- No Store, you make the package management, you update manually by replacing the image
+- made for desktop applications
+
+
+### 16. DKMS - Dynamic Kernel Module Support
+
+- A kernel build has:
+    - Kernel .config
+    - Kernel headers
+    - Kernel symbols
+    - Kernel build system (kbuild)
+    - Architecture/compiler/build configuration
+
+- A kernel module interacts directly with the kernel and is compiled
+  against the kernel's build environment and interfaces.
+
+- Therefore, when a new kernel is installed, an out-of-tree module
+  normally needs to be rebuilt against the new kernel.
+
+- DKMS automates this process:
+    - detects the new kernel
+    - builds the registered out-of-tree driver source against it
+    - installs the resulting .ko module
+
+### 17. i18n vs. i10n
+#### i18n 
+```
+internationalization
+i n t e r n a t i o n a l i z a t i o n
+↑                                     ↑
+i                                     n
+ \____________ 18 letters __________/
+```
+
+>Designing software so it can support **multiple languages, regions, date formats, number formats, currencies, etc.** without changing the core code.
+
+>build it to be adaptable
+
+
+#### i10n
+```
+localization
+l o c a l i z a t i o n
+↑                       ↑
+l                       n
+ \_______ 10 letters __/
+```
+
+>Actually adapting the internationalized software for a **specific language/region**.
+
+>provide the actual values/rules for one specific locale.
+
+**i18n is the development/design stage that makes the program capable of being localized.**  
+**l10n is the application of that capability to a specific locale.**
+
+```
+i18n
+│
+│ Developer designs the software to support locales
+▼
+Locale-aware application
+│
+│ System/user selects a specific locale
+▼
+System Locale
+│
+├── Language
+├── Region
+├── Character encoding → UTF-8
+├── Date/time rules
+├── Number formatting
+├── Currency
+└── Collation/sorting
+       │
+       ▼
+      l10n
+  actual behavior for
+  that specific locale
+```
+
+| Feature              | i18n does...                                   | l10n does...                                |
+| -------------------- | ---------------------------------------------- | ------------------------------------------- |
+| Translated text      | Provides mechanism to load different languages | Provides Arabic/French/etc. translations    |
+| Date/time            | Makes formatting locale-aware                  | Defines the actual format for a locale      |
+| Numbers              | Supports locale-aware formatting               | Defines `1,234.56` vs `1 234,56`, etc.      |
+| Currency             | Allows currency to vary                        | Specifies currency conventions for a locale |
+| Collation            | Makes sorting locale-aware                     | Provides the locale-specific sorting rules  |
+| Cultural conventions | Makes them configurable                        | Supplies the actual cultural conventions    |
+also there are Environmental variables that affect the localization (One of the mechanisms)
+> LANG, LC_* , LC_ALL
+
+Some variables override the others
+
+```
+│
+├── LANG       ← default locale ← Lowest priority
+│
+├── LC_CTYPE   ← character handling      e.g. UTF-8, ASCII
+├── LC_COLLATE ← sorting                 
+├── LC_TIME    ← date/time
+├── LC_NUMERIC ← numbers
+├── LC_MONETARY← currency
+└── ...
+│
+└── LC_ALL     ← overrides all of the above ← Highest priority
+```
+
+Example:
+```
+LANG=en_US.UTF-8
+```
+This says:
+Language: English
+Region: USA                       -> Date/number/Currency/ ... : USA conventions
+Character set: UTF-8
+
+
+
+### 🧰 Key Plumbing Tools
 
 | Tool       | Purpose                         |
 | ---------- | ------------------------------- |
@@ -3621,7 +3997,7 @@ chattr -i test.txt         # Now you can delete/edit
 
 -----------------
 
-## Resources used for this file
+### Resources used for this file
 
 1. [ChatGPT](https://chatgpt.com/share/68227130-1f34-8009-8191-2f4f616adf3b)
 2. [DJ ware Linux internal playlist](https://www.youtube.com/watch?v=bdQ1wjmzGZ0&list=PLWK00SLo2KcQi1hlP2_allMWeG19MkQa7&index=5)
@@ -3638,7 +4014,7 @@ chattr -i test.txt         # Now you can delete/edit
 
 ------------
 
-## Further Learning Resources
+### Further Learning Resources
 
 - **Books:**
   - *Linux From Scratch* (build your own Linux system)
