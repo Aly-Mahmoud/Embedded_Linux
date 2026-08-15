@@ -237,7 +237,7 @@ These components make up the **plumbing** that supports high-level applications 
 
 ### 1. Kernel
 
-![Kernel Structure](Cache\Kernel_Structure.png)
+![Kernel Structure](Cache/Kernel_Structure.png)
 
 - **Kernel Design**
   - **Most Operating Systems are monolithic including Linux** 
@@ -273,9 +273,9 @@ These components make up the **plumbing** that supports high-level applications 
 
 ![Linux Arch](Cache/Linux_Arch.png)
 
-![Linux_Kernel_Architecture](Cache\Linux_Kernel_Architecture.png)
+![Linux_Kernel_Architecture](Cache/Linux_Kernel_Architecture.png)
 
- ![VFS_Work](Cache\VFS_Work.png)
+ ![VFS_Work](Cache/VFS_Work.png)
 
 ### 2.Virtual filesystems - Shim layer
 
@@ -296,7 +296,7 @@ These components make up the **plumbing** that supports high-level applications 
 
 #### How VFS works
 
-![VFS_Work](Cache\VFS_Work.png)
+![VFS_Work](Cache/VFS_Work.png)
 
 - this is just an example
 - there are more types of constructs like pipes, dmesg, etc.
@@ -380,21 +380,21 @@ Multics OS were the 1st to introduce this idea, they had 64 rings of protection,
 - every ring in between -> dependent upon if the application was granted this ring -> with multiple ring levels you can have application that can see application in the ring of lower ring level but not vice versa.
 - the outer most ring -> lowest level of privileges -> the user application.
 
-<img src="Cache\Protection_Ring.png" alt="Protection Ring" style="zoom:63%;" />
+<img src="Cache/Protection_Ring.png" alt="Protection Ring" style="zoom:63%;" />
 
 
 
 in some other diagrams you can see that they draw the Shell in it's own layer, but the shell is just an application in the user space, so technically it does not have it's own space.
 
-![linux_kernel_2](Cache\linux_kernel_2.png)
+![linux_kernel_2](Cache/linux_kernel_2.png)
 
 **Intel Architecture of protection ring**
 
-![Intel Protection Ring](Cache\Intel_kernel.png)
+![Intel Protection Ring](Cache/Intel_kernel.png)
 
 **Linux standard protection ring**
 
-![Linux_Protection_Ring_Arch](Cache\Linux_Protection_Ring_Arch.png)
+![Linux_Protection_Ring_Arch](Cache/Linux_Protection_Ring_Arch.png)
 
 - Linux only uses Ring 0 and Ring 3
 - The device Drivers ( s) are inside the kernel 
@@ -412,9 +412,9 @@ in some other diagrams you can see that they draw the Shell in it's own layer, b
 
 #### SYSCALL Mechanism
 
-![SYSCALL](Cache\SYSCALL.png)
+![SYSCALL](Cache/SYSCALL.png)
 
-![SYSCALL2](Cache\SYSCALL2.png)
+![SYSCALL2](Cache/SYSCALL2.png)
 
 - User application requisites `open() ` function which is SYSCALL function.
 - SYSCALL execute a trap
@@ -1656,7 +1656,7 @@ in Linux everything is a file, a block device has an entry created automatically
 
 **Booting relation to Partition Type:**
 
-![BIOS-UEFI](Cache\BIOS-UEFI.png)
+![BIOS-UEFI](Cache/BIOS-UEFI.png)
 
 
 
